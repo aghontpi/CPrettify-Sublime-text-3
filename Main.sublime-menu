@@ -1,0 +1,16 @@
+[
+	{
+		"id": "tools",
+		"children":
+		[
+			{
+				"id": "C",
+				"caption": "cPrettify",
+				"children":
+				[
+					{ "caption": "prettify file", "command": "cprettify_file"}
+				]
+			}
+		]
+	}
+]
