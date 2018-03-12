@@ -12,19 +12,6 @@ def handleProcess():
 
 	#arguments containing the code
 
-def runSetup():
-
-	dPath = dirSetup() + tArgs()
-
-	print('---generated arguments---')
-
-	print(dPath)
-
-	print('-----------end-----------')
-
-	dpath=shlex.split(dPath)
-
-	return dPath
 
 def execute(args):
 
@@ -72,9 +59,69 @@ def execute(args):
 
 	print(stderr)
 
-def extractView():
 
-	print('')
+
+
+def execute_(view,edit,region):
+
+	info = None
+
+	if os.name == 'nt':
+
+		info=subprocess.STARTUPINFO()
+
+		info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+
+
+	#building file path
+
+	packageDir=sublime.packages_path()
+
+	libDir=os.path.join('CPrettify','lib')
+
+	fDir=os.path.join(packageDir,libDir)
+
+	fileDir=os.path.join(fDir,'ben.cfg')
+
+
+	#test file for debug only
+	#tfile=os.path.join(fDir,"abc.c")
+
+
+	#check if config file exists in lib folder:
+
+	if os.path.isfile(fileDir):
+
+		#Todo
+		#debug if occurs
+		#for dbug only
+
+		print("config file exists!")
+
+	else:
+
+		return false
+
+	cmd = [dirSetup(),"-c",fileDir,"-l","c"]
+
+	#TO DO 
+	#handle errors..which is quite a lot.
+
+	pR=p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True,startupinfo = info)
+
+	#view class "sublime.View" "https://www.sublimetext.com/docs/3/api_reference.html#sublime.View"
+
+	#EROR FIX # 'str' does not support the buffer interface
+	output , stderr = p.communicate(input = (view.substr(region).encode("utf-8")))
+
+	view.replace(edit, region, output.decode("utf-8"))
+
+	print(stderr)
+
+
+
+
 
 def dirSetup():
 
@@ -92,10 +139,11 @@ def dirSetup():
 
 
 #etempargs
-
+#debugging and initial version
 def tArgs():
 
-	return "-c ben.cfg --no-backup abc.c";
+	#return "-c ben.cfg --no-backup abc.c";
+	return  "-l c -o"
 
 def argsSetup(args):
 
@@ -128,7 +176,7 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 		
 		if(sublime.View.substr is ''):
 
-			sublime.status_message("This is empty!!")
+			sublime.status_message("This is empty!!!")
 
 			return
 
@@ -150,7 +198,7 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 		#go ahead and proecessing the file
 		
-		execute(runSetup())
+		execute_(self.view,edit,sublime.Region(0,self.view.size()))
 
 
 
