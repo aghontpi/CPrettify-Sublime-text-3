@@ -113,8 +113,13 @@ def execute_(view,edit,region):
 	#view class "sublime.View" "https://www.sublimetext.com/docs/3/api_reference.html#sublime.View"
 
 	#EROR FIX # 'str' does not support the buffer interface
-	output , stderr = p.communicate(input = (view.substr(region).encode("utf-8")))
 
+
+	#reference for ueing stdin as input
+	#communicate() returns a tuple (stdoutdata, stderrdata). 
+	#docs https://docs.python.org/2/library/subprocess.html
+	output , stderr = p.communicate(input = (view.substr(region).encode("utf-8")))
+	
 	view.replace(edit, region, output.decode("utf-8"))
 
 	print(stderr)
@@ -141,7 +146,7 @@ def dirSetup():
 #etempargs
 #debugging and initial version
 def tArgs():
-
+	
 	#return "-c ben.cfg --no-backup abc.c";
 	return  "-l c -o"
 
@@ -165,7 +170,7 @@ class CprettifyCommand(sublime_plugin.TextCommand):
 #cprettify_file
 class CprettifyFileCommand(sublime_plugin.TextCommand):
 
-	def run(self, edit, **kwargs):
+	def run(self, edit, **args):
 
 		#setup directories and variables
 		#generating folder path
@@ -198,7 +203,47 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 		#go ahead and proecessing the file
 		
+		#checking the file name
+
+		exp = self.view.file_name()
+
+		extension = os.path.splitext(exp)[-1].lower()
+		
+		if extension != ".c":
+		
+			sublime.status_message("This is not a c program.. save the file in .c extension")
+		
+			return
+
+
 		execute_(self.view,edit,sublime.Region(0,self.view.size()))
+
+
+
+class OnlySelectionCommand(sublime_plugin.TextCommand):
+
+	def run(self, edit, **args):
+		
+		exp = self.view.file_name()
+
+		#pattern = re.compile('c$')
+		#print(bool(pattern.match(exp)))
+		
+		#re takes up unnecessary resources
+		#alternative
+		extension = os.path.splitext(exp)[-1].lower()
+		
+		if extension != ".c":
+		
+			sublime.status_message("This is not a c program.. save the file in .c extension")
+		
+			return
+
+		for region in self.view.sel():
+		
+			execute_(self.view,edit,region)
+
+			sublime.status_message("Done.. Foramting")
 
 
 

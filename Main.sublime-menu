@@ -8,7 +8,8 @@
 				"caption": "cPrettify",
 				"children":
 				[
-					{ "caption": "prettify file", "command": "cprettify_file"}
+					{ "caption": "prettify file", "command": "cprettify_file"},
+					{ "caption": "only selected", "command": "only_selection"}
 				]
 			}
 		]
