@@ -1,0 +1,7 @@
+[{
+  "keys": ["ctrl+alt+p","f"],
+  "command": "cprettify_file"
+},{
+  "keys": ["ctrl+alt+p","s"],
+  "command": "only_selection"
+}]

@@ -12,6 +12,16 @@ def handleProcess():
 
 	#arguments containing the code
 
+#initiate load settings settings
+
+#so can be access from anywhere
+
+setting = None
+
+def init():
+	global setting 
+	setting = sublime.load_settings("CPrettify.sublime-settings")
+
 
 def execute(args):
 
@@ -73,8 +83,24 @@ def execute_(view,edit,region):
 		info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
 
+	#getting config from default settings
+
+	#"https://www.sublimetext.com/docs/3/api_reference.html#sublime.Settings"
+	
+	config_ = setting.get('config_file');
+
+	if config_ is None:
+
+		#error
+
+		return
 
 	#building file path
+
+	#for debug only
+
+	print('using ' + config_ +' file..')
+
 
 	packageDir=sublime.packages_path()
 
@@ -82,7 +108,7 @@ def execute_(view,edit,region):
 
 	fDir=os.path.join(packageDir,libDir)
 
-	fileDir=os.path.join(fDir,'ben.cfg')
+	fileDir=os.path.join(fDir, config_)
 
 
 	#test file for debug only
@@ -93,7 +119,6 @@ def execute_(view,edit,region):
 
 	if os.path.isfile(fileDir):
 
-		#Todo
 		#debug if occurs
 		#for dbug only
 
@@ -101,7 +126,7 @@ def execute_(view,edit,region):
 
 	else:
 
-		return false
+		return 
 
 	cmd = [dirSetup(),"-c",fileDir,"-l","c"]
 
@@ -172,6 +197,10 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, **args):
 
+		#process settings, configurations
+
+		init()
+
 		#setup directories and variables
 		#generating folder path
 
@@ -218,6 +247,8 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 		execute_(self.view,edit,sublime.Region(0,self.view.size()))
 
+		sublime.status_message("Done.. Foramting")
+
 
 
 class OnlySelectionCommand(sublime_plugin.TextCommand):
@@ -225,6 +256,10 @@ class OnlySelectionCommand(sublime_plugin.TextCommand):
 	def run(self, edit, **args):
 		
 		exp = self.view.file_name()
+
+		#for settings
+
+		init()
 
 		#pattern = re.compile('c$')
 		#print(bool(pattern.match(exp)))
@@ -240,10 +275,12 @@ class OnlySelectionCommand(sublime_plugin.TextCommand):
 			return
 
 		for region in self.view.sel():
-		
+
+			print(region)
+
 			execute_(self.view,edit,region)
 
-			sublime.status_message("Done.. Foramting")
+		sublime.status_message("Done.. Foramting")
 
 
 

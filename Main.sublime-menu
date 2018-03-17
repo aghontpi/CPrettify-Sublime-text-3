@@ -13,5 +13,37 @@
 				]
 			}
 		]
+	},
+	{
+    	"id": "preferences",
+    	"children": 
+    	[
+    		{
+        		"id": "package-settings",
+        		"children": 
+        		[
+        			{
+            			"caption": "Cprettify",
+            			"children": 
+            			[
+            				{
+                				"caption": "Keyboard Shortcut - Default",
+                				"command": "open_file",
+                				"args":
+                					{
+                    					"file": "${packages}/CPrettify/Default (Windows).sublime-keymap"
+                					}
+            				},
+            				{
+                				"caption": "Keyboard Shortcut- User",
+                				"command": "open_file",
+                				"args":
+                					{
+                    					"file": "${packages}/User/Default (Windows).sublime-keymap"
+                					}
+            				}
+            			]
+        	}	]	}
+    	]
 	}
 ]
