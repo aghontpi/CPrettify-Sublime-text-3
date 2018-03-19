@@ -9,7 +9,8 @@
 				"children":
 				[
 					{ "caption": "prettify file", "command": "cprettify_file"},
-					{ "caption": "only selected", "command": "only_selection"}
+					{ "caption": "only selected", "command": "only_selection"},
+                    { "caption": "restore default setting", "command": "restore_config"}
 				]
 			}
 		]
@@ -41,7 +42,34 @@
                 					{
                     					"file": "${packages}/User/Default (Windows).sublime-keymap"
                 					}
-            				}
+            				},
+
+                            {
+                                "caption": "Settings - Default",
+                                "command": "open_file",
+                                "args":
+                                    {
+                                        "file": "${packages}/CPrettify/CPrettify.sublime-settings"
+                                    }
+                            },
+                            {
+                                "caption": "Settings - User",
+                                "command": "open_file",
+                                "args":
+                                    {
+                                        "file": "${packages}/User/CPrettify.sublime-settings"
+                                    }
+                            },
+                            {
+                                "caption": "Create cfg file",
+                                "command": "open_file",
+                                "args":
+                                    {
+                                        "file": "${packages}/User/CPrettify/user.cfg"
+                                    }
+                            }
+
+
             			]
         	}	]	}
     	]

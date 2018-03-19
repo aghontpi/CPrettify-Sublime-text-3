@@ -3,6 +3,7 @@ import sublime_plugin
 import subprocess
 import os
 import shlex
+from shutil import copy
 
 # os.system can't be used here since it creates new cmd window
 
@@ -18,9 +19,21 @@ def handleProcess():
 
 setting = None
 
+flag = 0
+
+user_setting = None
+
+user_config = False
+
 def init():
+
 	global setting 
+
+	global user_setting
+
 	setting = sublime.load_settings("CPrettify.sublime-settings")
+
+	user_setting = sublime.load_settings("Preferences.sublime-settings")
 
 
 def execute(args):
@@ -69,12 +82,69 @@ def execute(args):
 
 	print(stderr)
 
+def restore_config():
+
+	file = get_path();
+
+	file_ = setting.get('config_file');
+
+	if file_ is None:
+
+		#error
+		#TODO
+		#raise error/exception to sublime here
+
+		return
+
+	original_config = os.path.join(file,file_)
+
+	original_config = original_config
+
+	backup_config = os.path.join(file,file_+'.bk')
+
+	copy(backup_config,original_config)
+
+	
+
+def get_path():
+
+	#building file path
+
+	packageDir=sublime.packages_path()
+
+	libDir=os.path.join('CPrettify','lib')
+
+	fDir=os.path.join(packageDir,libDir)
+
+	return fDir
+
+
+def userFoldercheck():
+
+	packageDir=sublime.packages_path()
+
+	dirFolder=os.path.join(packageDir,'User','CPrettify')
+
+	if not os.path.isdir(dirFolder):
+
+		#TODO
+		#change to makedirs
+		os.mkdir(dirFolder)
+
+	cfgfile=os.path.join(dirFolder,'user.cfg')
+
+	return os.path.isfile(cfgfile)
+
 
 
 
 def execute_(view,edit,region):
 
+	global flag
+
 	info = None
+
+	file_cfg = None
 
 	if os.name == 'nt':
 
@@ -86,20 +156,40 @@ def execute_(view,edit,region):
 	#getting config from default settings
 
 	#"https://www.sublimetext.com/docs/3/api_reference.html#sublime.Settings"
+
+
+
+	#check if user has own cfg
+
+	chkflag = setting.get('user_config_file')
+
+	isCustomCfg = eval(chkflag)
+
+	if isCustomCfg:
+
+		packageDir=sublime.packages_path()
+
+		file_cfg=os.path.join(packageDir,'User','CPrettify','user.cfg')
+
 	
-	config_ = setting.get('config_file');
+	config_ = setting.get('config_file')
 
 	if config_ is None:
 
 		#error
-
+		sublime.status_message("No config file found.. reinstall plugin")
+		
 		return
-
-	#building file path
 
 	#for debug only
 
-	print('using ' + config_ +' file..')
+	if isCustomCfg is False:
+
+		print('using ' + config_ +' file..')
+
+	else:
+
+		print('using ' + file_cfg + ' file')
 
 
 	packageDir=sublime.packages_path()
@@ -129,6 +219,13 @@ def execute_(view,edit,region):
 		return 
 
 	cmd = [dirSetup(),"-c",fileDir,"-l","c"]
+	
+	if user_config and isCustomCfg:
+
+		cmd = [dirSetup(),"-c",file_cfg,"-l","c"]
+
+		print('overriding provided files and using custom file')
+
 
 	#TO DO 
 	#handle errors..which is quite a lot.
@@ -143,12 +240,40 @@ def execute_(view,edit,region):
 	#reference for ueing stdin as input
 	#communicate() returns a tuple (stdoutdata, stderrdata). 
 	#docs https://docs.python.org/2/library/subprocess.html
+
 	output , stderr = p.communicate(input = (view.substr(region).encode("utf-8")))
+
+
+	#Todo 
+	#branch out on problems
+
+	#getting error from config file
+
+	braceserror = setting.get('unmatched_braces');
 	
+	if braceserror in str(stderr):
+
+		#dont replace the intended teest for further infi check logs
+
+		#remove this after debugging
+
+		print(stderr)
+
+		#TODO - change blid assumption
+
+		sublime.status_message("unmatched braces problem")
+
+		#set global flag
+
+		
+
+		flag = 1
+
+		return
+
 	view.replace(edit, region, output.decode("utf-8"))
 
-	print(stderr)
-
+	
 
 
 
@@ -200,6 +325,18 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 		#process settings, configurations
 
 		init()
+
+		if not userFoldercheck():
+
+			print('No user File Detected')
+
+			global user_config
+
+			user_config = False
+
+		else:
+
+			user_config = True
 
 		#setup directories and variables
 		#generating folder path
@@ -261,10 +398,17 @@ class OnlySelectionCommand(sublime_plugin.TextCommand):
 
 		init()
 
+		if not userFoldercheck():
+
+			print('No user File Detected')
+
+
 		#pattern = re.compile('c$')
+
 		#print(bool(pattern.match(exp)))
 		
 		#re takes up unnecessary resources
+
 		#alternative
 		extension = os.path.splitext(exp)[-1].lower()
 		
@@ -276,11 +420,39 @@ class OnlySelectionCommand(sublime_plugin.TextCommand):
 
 		for region in self.view.sel():
 
-			print(region)
+			#view can be empty
+			#some views is and some view are not 
+
+			#Don't run.. Stop execution 
+			
+			#process non empty views
+
+			if sublime.Region.empty(region):
+
+				sublime.status_message("Nothing Selected")
+
+				return
 
 			execute_(self.view,edit,region)
 
-		sublime.status_message("Done.. Foramting")
+		#check flag before going further
+
+		if flag is 0:
+
+			sublime.status_message("Done.. Foramting")
+
+
+
+
+class RestoreConfigCommand(sublime_plugin.TextCommand):
+
+
+	def run(self, edit):
+
+		init()
+
+		restore_config()
+
 
 
 

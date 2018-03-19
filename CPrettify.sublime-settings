@@ -1,6 +1,55 @@
-{//configuration file
+{
+//configuration file
+
+//--------------------------------NOTE!!!----------------------------------------
+
+//always make changes to user settigs, if made here it will not survive updates 
+
+//-------------------------------------------------------------------------------
+
+//dont chnage this settings unless you know what you are Doing.
+//is responsible for spacing and braces
+
+//this is for choosing from provided cfg file
+//you can choose from "ben.cfg" and "defaults.cfg"
+//be sure to specify in user settings
+"config_file" : "ben.cfg",
 
 
-"config_file" : "defaults.cfg"
+
+
+//format before leaving file or closing file which
+//since no backup is kept quite unstable now
+
+
+//can potentially result in data loss if some critical issues occur
+
+
+
+"autoFormat"	  : "False",
+
+
+// allowed file extensions 
+//currently only supports c 
+//TODO support cpp  and jaca
+"json":
+        {
+            "file_extensions": [
+                "c",
+                "cpp",
+                "java"
+            ]
+
+        },
+
+
+"unmatched_braces":"Unmatched BRACE_CLOSE",
+
+
+//if set to true you must have added your cfg file from
+//package settings -> CPrettify -> Create cfg file and paste your settings
+
+"user_config_file":"False"
+
 
 }
