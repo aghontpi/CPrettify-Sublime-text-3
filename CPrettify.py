@@ -191,6 +191,14 @@ def execute_(view,edit,region):
 
 		print('using ' + file_cfg + ' file')
 
+		if not userFoldercheck():
+
+			sublime.status_message("Not provided user config file")
+
+			flag = 1
+
+			return
+
 
 	packageDir=sublime.packages_path()
 
@@ -322,6 +330,8 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, **args):
 
+		global flag
+		
 		#process settings, configurations
 
 		init()
@@ -384,7 +394,9 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 		execute_(self.view,edit,sublime.Region(0,self.view.size()))
 
-		sublime.status_message("Done.. Foramting")
+		if flag is 0:
+
+			sublime.status_message("Done.. Foramting")
 
 
 
