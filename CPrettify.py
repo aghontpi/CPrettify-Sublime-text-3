@@ -7,11 +7,7 @@ from shutil import copy
 
 # os.system can't be used here since it creates new cmd window
 
-def handleProcess():
-
-	res = subprocess.check_output(['/lib/uncrustify.exe','']) 
-
-	#arguments containing the code
+#arguments containing the code
 
 #initiate load settings settings
 
@@ -223,6 +219,10 @@ def execute_(view,edit,region):
 		print("config file exists!")
 
 	else:
+
+		flag =1
+
+		sublime.status_message("Provided Default config file doesnt exist")
 
 		return 
 
@@ -465,27 +465,4 @@ class RestoreConfigCommand(sublime_plugin.TextCommand):
 
 		restore_config()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ways that can be run
-# $ uncrustify -c mystyle.cfg -f somefile.c -o somefile.c.unc
-# $ uncrustify -c mystyle.cfg -f somefile.c > somefile.c.unc
-# $ uncrustify -c mystyle.cfg somefile.c
-# $ uncrustify -c mystyle.cfg --no-backup somefile.c
-# $ uncrustify -c mystyle.cfg *.c
-# $ uncrustify -c mystyle.cfg --no-backup *.c
 
