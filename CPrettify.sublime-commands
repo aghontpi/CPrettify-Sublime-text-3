@@ -1,0 +1,9 @@
+[
+{
+    "caption": "CPrettify - Prettify file",
+    "command": "cprettify_file"
+},
+{
+    "caption": "CPrettify - only selection",
+    "command": "only_selection"
+}]
