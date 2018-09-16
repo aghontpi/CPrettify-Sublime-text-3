@@ -25,6 +25,8 @@ user_config = False
 
 file_ = None
 
+chkflag = None
+
 def init(view):
 
 	global setting 
@@ -32,6 +34,8 @@ def init(view):
 	global user_setting
 
 	global file_
+
+	global chkflag
 
 	#custom settings file for package. handling view.settings() in the fuction getSettings().
 
@@ -41,13 +45,20 @@ def init(view):
 
 	file_ = getSettings(view,'config_file')
 
-	#checking in view.settings() first
+	chkflag =  getSettings(view,'user_config_file')
 
-	print(file_)
+	#checking in view.settings() first
 
 	if file_ is None:
 
 		file_ = setting.get('config_file')
+
+
+	if chkflag is None:
+
+		chkflag = setting.get('user_config_file')
+
+		
 
 
 #function: getSettings()
@@ -168,6 +179,8 @@ def execute_(view,edit,region):
 
 	global flag
 
+	global chkflag
+
 	info = None
 
 	file_cfg = None
@@ -186,8 +199,6 @@ def execute_(view,edit,region):
 
 
 	#check if user has own cfg
-
-	chkflag = setting.get('user_config_file')
 
 	isCustomCfg = eval(chkflag)
 
