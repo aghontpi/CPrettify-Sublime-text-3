@@ -58,7 +58,7 @@ def init(view):
 
 		chkflag = setting.get('user_config_file')
 
-		
+
 
 
 #function: getSettings()
@@ -179,6 +179,8 @@ def execute_(view,edit,region):
 
 	global flag
 
+	global file_
+
 	global chkflag
 
 	info = None
@@ -209,8 +211,8 @@ def execute_(view,edit,region):
 		file_cfg=os.path.join(packageDir,'User','CPrettify','user.cfg')
 
 	
-	config_ = setting.get('config_file')
-
+	config_ = file_
+	
 	if config_ is None:
 
 		#error
