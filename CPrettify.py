@@ -21,15 +21,44 @@ user_setting = None
 
 user_config = False
 
-def init():
+#For restoring purposes.
+
+file_ = None
+
+def init(view):
 
 	global setting 
 
 	global user_setting
 
+	global file_
+
+	#custom settings file for package. handling view.settings() in the fuction getSettings().
+
 	setting = sublime.load_settings("CPrettify.sublime-settings")
 
 	user_setting = sublime.load_settings("Preferences.sublime-settings")
+
+	file_ = getSettings(view,'config_file')
+
+	#checking in view.settings() first
+
+	print(file_)
+
+	if file_ is None:
+
+		file_ = setting.get('config_file')
+
+
+#function: getSettings()
+
+#Description: Accessing the view's setting object,(project specific settings).
+
+#returns: returns view's setting object.
+
+def getSettings(view,arg):
+
+	return view.settings().get(arg)
 
 
 def execute(args):
@@ -80,15 +109,16 @@ def execute(args):
 
 def restore_config():
 
-	file = get_path();
+	global file_
 
-	file_ = setting.get('config_file');
+	file = get_path();
 
 	if file_ is None:
 
 		#error
 		#TODO
 		#raise error/exception to sublime here
+		print("no config file found in that name")
 
 		return
 
@@ -334,7 +364,7 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 		
 		#process settings, configurations
 
-		init()
+		init(self.view)
 
 		if not userFoldercheck():
 
@@ -408,7 +438,7 @@ class CprettifyOnlySelectionCommand(sublime_plugin.TextCommand):
 
 		#for settings
 
-		init()
+		init(self.view)
 
 		if not userFoldercheck():
 
@@ -461,7 +491,7 @@ class CprettifyRestoreConfigCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit):
 
-		init()
+		init(self.view)
 
 		restore_config()
 
