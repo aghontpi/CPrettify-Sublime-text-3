@@ -21,15 +21,55 @@ user_setting = None
 
 user_config = False
 
-def init():
+#For restoring purposes.
+
+file_ = None
+
+chkflag = None
+
+def init(view):
 
 	global setting 
 
 	global user_setting
 
+	global file_
+
+	global chkflag
+
+	#custom settings file for package. handling view.settings() in the fuction getSettings().
+
 	setting = sublime.load_settings("CPrettify.sublime-settings")
 
 	user_setting = sublime.load_settings("Preferences.sublime-settings")
+
+	file_ = getSettings(view,'config_file')
+
+	chkflag =  getSettings(view,'user_config_file')
+
+	#checking in view.settings() first
+
+	if file_ is None:
+
+		file_ = setting.get('config_file')
+
+
+	if chkflag is None:
+
+		chkflag = setting.get('user_config_file')
+
+
+
+
+#function: getSettings()
+
+#Description: Accessing the view's setting object,(project specific settings).
+
+#returns: returns view's setting object.
+
+def getSettings(view,arg):
+
+	return view.settings().get(arg)
 
 
 def execute(args):
@@ -80,15 +120,16 @@ def execute(args):
 
 def restore_config():
 
-	file = get_path();
+	global file_
 
-	file_ = setting.get('config_file');
+	file = get_path();
 
 	if file_ is None:
 
 		#error
 		#TODO
 		#raise error/exception to sublime here
+		print("no config file found in that name")
 
 		return
 
@@ -138,6 +179,10 @@ def execute_(view,edit,region):
 
 	global flag
 
+	global file_
+
+	global chkflag
+
 	info = None
 
 	file_cfg = None
@@ -157,8 +202,6 @@ def execute_(view,edit,region):
 
 	#check if user has own cfg
 
-	chkflag = setting.get('user_config_file')
-
 	isCustomCfg = eval(chkflag)
 
 	if isCustomCfg:
@@ -168,8 +211,8 @@ def execute_(view,edit,region):
 		file_cfg=os.path.join(packageDir,'User','CPrettify','user.cfg')
 
 	
-	config_ = setting.get('config_file')
-
+	config_ = file_
+	
 	if config_ is None:
 
 		#error
@@ -334,7 +377,7 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 		
 		#process settings, configurations
 
-		init()
+		init(self.view)
 
 		if not userFoldercheck():
 
@@ -408,7 +451,7 @@ class CprettifyOnlySelectionCommand(sublime_plugin.TextCommand):
 
 		#for settings
 
-		init()
+		init(self.view)
 
 		if not userFoldercheck():
 
@@ -461,7 +504,7 @@ class CprettifyRestoreConfigCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit):
 
-		init()
+		init(self.view)
 
 		restore_config()
 
