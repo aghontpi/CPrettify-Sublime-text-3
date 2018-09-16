@@ -9,8 +9,8 @@
 				"children":
 				[
 					{ "caption": "prettify file", "command": "cprettify_file"},
-					{ "caption": "only selected", "command": "only_selection"},
-                    { "caption": "restore default setting", "command": "restore_config"}
+					{ "caption": "only selected", "command": "cprettify_only_selection"},
+                    { "caption": "restore default setting", "command": "cprettify_restore_config"}
 				]
 			}
 		]
