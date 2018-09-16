@@ -5,5 +5,5 @@
 },
 {
     "caption": "CPrettify - only selection",
-    "command": "only_selection"
+    "command": "cprettify_only_selection"
 }]

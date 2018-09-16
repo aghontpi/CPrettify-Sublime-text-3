@@ -400,7 +400,7 @@ class CprettifyFileCommand(sublime_plugin.TextCommand):
 
 
 
-class OnlySelectionCommand(sublime_plugin.TextCommand):
+class CprettifyOnlySelectionCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, **args):
 		
@@ -456,7 +456,7 @@ class OnlySelectionCommand(sublime_plugin.TextCommand):
 
 
 
-class RestoreConfigCommand(sublime_plugin.TextCommand):
+class CprettifyRestoreConfigCommand(sublime_plugin.TextCommand):
 
 
 	def run(self, edit):
