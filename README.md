@@ -6,7 +6,7 @@ A C-prettify plugin for sublime text, just install it and use it.. No additional
 
 ## Getting Started
 
-Install from Package Control [CPrettify](http://www.sublimetext.com/3)
+Install from Package Control [CPrettify](https://packagecontrol.io/packages/CPrettify)
 
 ### Using Package Control [Sublime Package Manager](http://wbond.net/sublime_packages/package_control)
 
@@ -56,7 +56,6 @@ and paste your config there and set
 * Python 
 * Sublime-api - documented via comments
 * Json - Menus and Settings
-* Install package control
 
 ## Authors
 
