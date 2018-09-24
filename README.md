@@ -1,14 +1,14 @@
 # Plugin for Sublime text-3
 
-A C-prettify plugin for sublime text, just install it and use it.. No additional configurations or installs required.
+>A C-prettify plugin for sublime text, just install it and use it.. No additional configurations or installs required.
 
-![Demo](http://imdead.esy.es/img/functions.gif)
+![Demo](https://public-folder-0000.firebaseapp.com/img/demo.gif)
 
 ## Getting Started
 
-Install from Package Control [CPrettify](https://packagecontrol.io/packages/CPrettify)
+### Install from Package Control [CPrettify](https://packagecontrol.io/packages/CPrettify)
 
-### Using Package Control [Sublime Package Manager](http://wbond.net/sublime_packages/package_control)
+Using Package Control [Sublime Package Manager](http://wbond.net/sublime_packages/package_control)
 
 To install use these commands.
 
@@ -24,19 +24,23 @@ Just copy the 'Cprettify' folder to  "C:\Users\'[username_here]'\AppData\Roaming
 ## Usage
 
 * Use  `Ctrl+Shift+P`
-* Type `cprettify`, Available options will be shown to use. See demo
+* Type `cprettify`, Available options will be shown to use.
+---or---
+* Use menu options
+---or---
+* Set keyboard shortcuts via provided settings
+* See demo
 
-### Prerequisites
+## Prerequisites
 
 Install package control for sublime.
 
-How to install Package control? 
-
-[Install package control](https://packagecontrol.io/installation)
+How to install Package control?. See [Install package control](https://packagecontrol.io/installation)
 
 ## Advanced Usage
 
-#### NOTE! use user setting to override, if changes are made to default, updates will reset it.
+#### NOTE
+##### _Use user setting to override, if changes are made to default, updates will reset it._
 
 * Override provided key bindings from settings if it interfears
 * You can also specify which config file to use from provided configs
@@ -59,7 +63,7 @@ and paste your config there and set
 
 ## Authors
 
-* **Gopinath (aka) Bluepie** 
+* **Gopinath (aka) Bluepie** [Gopinath001](https://github.com/Gopinath001) 
 
 ## License
 
