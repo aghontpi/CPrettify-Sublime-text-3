@@ -6,9 +6,19 @@
 
 ## Getting Started
 
+[![release][badge]][release link] [![Package Control][downloads badge]][package link] [![license][license-badge]][license file]
+
+
 ### Install from Package Control [CPrettify](https://packagecontrol.io/packages/CPrettify)
 
 Using Package Control [Sublime Package Manager](http://wbond.net/sublime_packages/package_control)
+
+[package link]: https://packagecontrol.io/packages/CPrettify
+[downloads badge]: https://packagecontrol.herokuapp.com/downloads/CPrettify.svg?style=flat
+[license-badge]: https://img.shields.io/github/license/gopinath001/CPrettify-Sublime-text-3
+[license file]: https://github.com/Gopinath001/CPrettify-Sublime-text-3/blob/master/LICENSE
+[badge]: https://img.shields.io/github/v/release/Gopinath001/CPrettify-Sublime-text-3?label=latest%20release
+[release link]: https://github.com/Gopinath001/CPrettify-Sublime-text-3/releases
 
 To install use these commands.
 
@@ -17,7 +27,7 @@ To install use these commands.
 * type `CPrettify`, select `CPrettify`
 
 
----or do it manually?---
+_or do it manually?_
 
 Just copy the 'Cprettify' folder to  "C:\Users\'[username_here]'\AppData\Roaming\Sublime Text 3\Packages\" -for Windows 
 
@@ -25,9 +35,13 @@ Just copy the 'Cprettify' folder to  "C:\Users\'[username_here]'\AppData\Roaming
 
 * Use  `Ctrl+Shift+P`
 * Type `cprettify`, Available options will be shown to use.
----or---
+
+_or_
+
 * Use menu options
----or---
+
+_or_
+
 * Set keyboard shortcuts via provided settings
 * See demo
 
