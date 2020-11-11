@@ -15,10 +15,10 @@ Using Package Control [Sublime Package Manager](http://wbond.net/sublime_package
 
 [package link]: https://packagecontrol.io/packages/CPrettify
 [downloads badge]: https://packagecontrol.herokuapp.com/downloads/CPrettify.svg?style=flat
-[license-badge]: https://img.shields.io/github/license/gopinath001/CPrettify-Sublime-text-3
-[license file]: https://github.com/Gopinath001/CPrettify-Sublime-text-3/blob/master/LICENSE
-[badge]: https://img.shields.io/github/v/release/Gopinath001/CPrettify-Sublime-text-3?label=latest%20release
-[release link]: https://github.com/Gopinath001/CPrettify-Sublime-text-3/releases
+[license-badge]: https://img.shields.io/github/license/aghontpi/CPrettify-Sublime-text-3
+[license file]: https://github.com/aghontpi/CPrettify-Sublime-text-3/blob/master/LICENSE
+[badge]: https://img.shields.io/github/v/release/aghontpi/CPrettify-Sublime-text-3?label=latest%20release
+[release link]: https://github.com/aghontpi/CPrettify-Sublime-text-3/releases
 
 To install use these commands.
 
@@ -77,7 +77,7 @@ and paste your config there and set
 
 ## Authors
 
-* **Gopinath (aka) Bluepie** [Gopinath001](https://github.com/Gopinath001) 
+* **aghontpi (aka) Bluepie** [aghontpi](https://github.com/aghontpi) 
 
 ## License
 
